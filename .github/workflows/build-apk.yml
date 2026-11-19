@@ -25,7 +25,10 @@ jobs:
       - name: Android SDK installeren
         uses: android-actions/setup-android@v3
         with:
-          packages: ''
+          packages: 'platform-tools'
+
+      - name: Android 35 installeren
+        run: sdkmanager --install "platforms;android-35" "build-tools;35.0.0"
 
       - name: Gradle installeren
         uses: gradle/actions/setup-gradle@v4
@@ -33,7 +36,7 @@ jobs:
           gradle-version: '8.9'
 
       - name: APK bouwen
-        run: gradle --no-daemon assembleDebug
+        run: gradle --no-daemon :app:assembleDebug
 
       - name: APK beschikbaar maken
         uses: actions/upload-artifact@v4
