@@ -1,28 +1,32 @@
 name: Bouw Android APK
-on:
+
+'on':
   workflow_dispatch:
   push:
-    branches: [main]
+    branches:
+      - main
+
 permissions:
   contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Download project
         uses: actions/checkout@v4
-      - name: Java 17
+      - name: Java 17 installeren
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
-      - name: Android SDK
+      - name: Android SDK installeren
         uses: android-actions/setup-android@v3
-      - name: Gradle
+      - name: Gradle installeren
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
-      - name: Bouw APK
+      - name: APK bouwen
         run: gradle --no-daemon assembleDebug
       - name: APK beschikbaar maken
         uses: actions/upload-artifact@v4
