@@ -1,7 +1,39 @@
-name: Bouw Android APK
-
-on:
-  workflow_dispatch:
+workflow_dispatch:
   push:
     branches:
       - main
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Project ophalen
+        uses: actions/checkout@v4
+
+      - name: Java 17 installeren
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Android SDK installeren
+        uses: android-actions/setup-android@v3
+
+      - name: Gradle installeren
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: APK bouwen
+        run: gradle --no-daemon assembleDebug
+
+      - name: APK beschikbaar maken
+        uses: actions/upload-artifact@v4
+        with:
+          name: Mijn-Herstel-Android-APK
+          path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
