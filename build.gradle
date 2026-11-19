@@ -1,5 +1,3 @@
-plugins { id 'com.android.application' }
-android { namespace 'be.mijnherstel.atlas'; compileSdk 35
- defaultConfig { applicationId 'be.mijnherstel.atlas'; minSdk 24; targetSdk 33; versionCode 1; versionName '1.0' }
- compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+plugins {
+    id 'com.android.application' version '8.7.3' apply false
 }
